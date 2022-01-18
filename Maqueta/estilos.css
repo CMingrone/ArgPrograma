@@ -1,0 +1,35 @@
+body {background-color: #dfe5ba;}
+
+section {border: 5px outset #20333f;
+        margin: 1%;
+        padding: 1%;
+}       
+.myButton {
+color: rgb(255, 251, 251); 
+font-size: 16px; line-height: 20px; 
+padding: 6px; border-radius: 15px; 
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; 
+font-weight: normal; 
+font-style: normal;
+font-variant: normal; 
+background: rgb(65, 10, 10);
+text-transform: uppercase;
+border: 5px outset rgb(28, 30, 32); 
+display: inline-block;}
+
+#nombre{
+    text-align: center;
+    font-size: 80px;
+    text-shadow: 4px 3px 0 #7A7A7A;
+}
+.descripcion{
+    text-align: center;
+    font-style: italic;
+}
+h1{
+    font-family: cursive;
+}
+.contact{
+    
+    
+}
