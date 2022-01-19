@@ -29,3 +29,14 @@ display: inline-block;}
 h1{
     font-family: cursive;
 }
+.modal-header{
+    background: orange;
+    color: black;
+    text-transform: uppercase;
+}
+.modal-body{
+    background: #dfe5ba;
+}
+.modal-footer{
+    background:rgb(33, 35, 114)
+}
