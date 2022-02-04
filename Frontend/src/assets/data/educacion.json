@@ -1,0 +1,27 @@
+{
+    "educacion":[ 
+        {
+            "school" : "UNSAM",
+            "title" : "Tecnico en Programacion Informatica",
+            "start" : "2019",
+            "end" : "Actualmente",
+            "img" : "assets/imagenes/unsam.jpg"
+        },
+        {
+            "school" : "YoProgramo",
+            "title" : "Desarrollador Web FullStack",
+            "start" : "2021",
+            "end" : "2022",
+            "img" : "assets/imagenes/ArgP.png"
+        },
+        {
+            "school" : "Colegio Jose Hernandez",
+            "title" : "Produccion de Bienes y Servicios",
+            "start" : "2004",
+            "end" : "2006",
+            "img" : "assets/imagenes/logocjh.png"
+        }
+
+    ]
+
+}

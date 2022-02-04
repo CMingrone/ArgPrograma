@@ -1,19 +1,20 @@
 <section>
     <h1>Educacion</h1>
     <div class="container-fluid">
-        <div class="row">
+        <div *ngFor="let item of educacion" class="row">
             <div class="col-2">
-                <img src="assets/imagenes/unsam.jpg" class="img-fluid" alt="logoUnsam" width=60%>
+                <img [src]="item.img" class="img-fluid" alt="logoUnsam" width=60%>
             </div>
             <div class="col-9">
-                <h2>UNSAM</h2>
-                <p id="tituloUno" class="nombre">Tecnico en Programacion Informatica.</p>
+                <h2>{{item.school}}</h2>
+                <p id="tituloUno" class="nombre">{{item.title}}</p>
+                <p id="tiempo" class="nombre">{{item.start}} - {{item.end}}</p>
             </div>
             <div class="col-1">
                 <button class="myButton" onclick="cambiarParrafo('tituloUno')">Editar</button>
             </div>
         </div>
- 
+ <!--
         <div class="row justify-content-start">
             <div class="col-2 align-self-start">
                     <img src="assets/imagenes/ArgP.png" class="img-fluid" alt="logoArg" width=60%>
@@ -39,7 +40,7 @@
                         <button class="myButton" onclick="cambiarParrafo('tituloTres')">Editar</button>
                     
                 </div>
-        </div>
+        </div>-->
     </div>
 
 

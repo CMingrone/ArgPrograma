@@ -11,6 +11,7 @@ import { HerramientasComponent } from './componentes/herramientas/herramientas.c
 import { ProyectosComponent } from './componentes/proyectos/proyectos.component';
 import { PiePaginaComponent } from './componentes/pie-pagina/pie-pagina.component';
 import { HttpClientModule} from '@angular/common/http'
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HttpClientModule} from '@angular/common/http'
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

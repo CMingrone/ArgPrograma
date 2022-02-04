@@ -4,8 +4,8 @@
             "fullName" : "Carlos A. Mingrone",
             "dateOfBirth" : "19/06/1989",
             "mail" : "carlos_mingrone@hotmail.com",
-            "ubication" : "Buenos Aires, Argentina."
-
+            "ubication" : "Buenos Aires, Argentina.",
+            "image" : "assets/imagenes/foto.jpg"
         }
 
 }
