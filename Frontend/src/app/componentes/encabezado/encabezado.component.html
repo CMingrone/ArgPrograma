@@ -57,7 +57,7 @@
         <h1 id="nombre">{{persona.fullName}}</h1>
         <p id="perfil" class="descripcion">Desarrollador web full stack.</p>
         <p id="residencia" class="descripcion">{{persona.ubication}}</p>
-        <button *ngIf="usuarioAutenticado" class="myButton" data-bs-toggle="modal" data-bs-target="#editEncabezado">Editar</button>
+        <button *ngIf="usuarioAutenticado" class="myButton" data-bs-toggle="modal" data-bs-target="#editEncabezado" (click)="mostrarDatosEncabezado()">Editar</button>
 
   
   <!-- Modal -->

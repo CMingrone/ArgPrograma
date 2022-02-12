@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Persona } from 'src/app/entidades/persona';
 import { DatosPersonalesService } from 'src/app/servicios/datos-personales.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class EncabezadoComponent implements OnInit {
       fullName:['', [Validators.required, Validators.minLength(5)]],
       position:['',[Validators.required]],
       ubication:['',[Validators.required]],
-      url:['https://',[Validators.required, Validators.pattern('https?://.+')]]
+      url:['',[Validators.required]]
 
     })
   }
@@ -34,14 +35,40 @@ export class EncabezadoComponent implements OnInit {
   }
 
   guardarEncabezado(){
+    
     if(this.form.valid){
-          alert('enviar los datos al servicio(servidor)');
-          this.form.reset();
-          document.getElementById("cerrarModalEncabezado")?.click();
+
+          let fullName=this.form.get('fullName')?.value;
+          let position=this.form.get('position')?.value;
+          let ubication=this.form.get('ubication')?.value;
+          let url=this.form.get('url')?.value;
+
+          let personaEditar = new Persona(fullName,position,ubication,url);
+          this.miServicio.editarDatosPersonales(personaEditar).subscribe({
+              //modificar los datos del componente por los ingresados por el usuario
+            next: (data) => {
+              this.persona=personaEditar
+              this.form.reset();
+              document.getElementById("cerrarModalEncabezado")?.click();
+            }, 
+            error: (error) => {
+              alert('No se puedo actualizar el registro. Por favor intente nuevamente mas tarde')
+           
+            }
+          });
+        
+          
     }
     else{
           alert('Hay errores');
-          this.form.markAllAsTouched();
+          this.form.markAllAsTouched()
     }
+  }
+  mostrarDatosEncabezado(){
+      this.form.get('fullName')?.setValue(this.persona.fullName);
+      this.form.get('position')?.setValue(this.persona.position);
+      this.form.get('ubication')?.setValue(this.persona.ubication);
+      this.form.get('url')?.setValue(this.persona.image);
+
   }
 }
