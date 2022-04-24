@@ -26,6 +26,15 @@ export class EncabezadoComponent implements OnInit {
   get fullName(){
     return this.form.get("fullName");
   }
+  get position(){
+    return this.form.get("position");
+  }
+  get ubication(){
+    return this.form.get("ubication");
+  }
+  get url(){
+    return this.form.get("url");
+  }
 
   ngOnInit(): void {
     this.miServicio.obtenerDatosPersonales().subscribe(data=>{
@@ -52,7 +61,7 @@ export class EncabezadoComponent implements OnInit {
               document.getElementById("cerrarModalEncabezado")?.click();
             }, 
             error: (error) => {
-              alert('No se puedo actualizar el registro. Por favor intente nuevamente mas tarde')
+              alert('No se puedo actualizar el registro. Por favor intente nuevamente mas tarde');
            
             }
           });

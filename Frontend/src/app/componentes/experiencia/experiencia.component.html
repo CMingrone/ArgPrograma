@@ -1,11 +1,23 @@
 <section>
     <h1>Experiencia</h1>
-    <div class="row">
-        <div class=col-11>
-            <p id="experiencia">...</p>
-        </div>
-        <div class="col-1">
-            <button class="myButton" onclick="cambiarParrafo('experiencia')">Editar</button>
+    <div class="container-fluid">
+        <div *ngFor="let item of experiencia" class="row">
+            <div class="col-2">
+                <img [src]="item.img" class="img-fluid" alt="logoUnsam" width=60%>
+            </div>
+            <div class="col-9">
+                <h2>{{item.empresa}}</h2>
+                <p id="tituloUno" class="nombre">{{item.puesto}}</p>
+                <p id="tituloUno" class="nombre">{{item.tareas}}</p>
+                <p id="tituloUno" class="nombre">{{item.tipo}}</p>
+                <p id="tiempo" class="nombre">{{item.start}} - {{item.end}}</p>
+            </div>
+            <div class="col-1">
+                <button class="myButton" onclick="cambiarParrafo('tituloUno')">Editar</button>
+            </div>
         </div>
     </div>
+
+
+
 </section>

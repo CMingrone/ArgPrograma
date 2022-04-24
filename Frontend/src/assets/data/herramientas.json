@@ -1,0 +1,19 @@
+{
+    "herramientas": [
+        { "nombre" : "HTML", "progreso": 70},
+        { "nombre" : "CSS", "progreso": 70 },
+        { "nombre" : "JAVASCRIPT", "progreso": 60},
+        {    "nombre" : "TYPESCRIPT", "progreso": 60},
+        {    "nombre" : "GIT-GitHub", "progreso": 75},
+        {    "nombre" : "SQL", "progreso": 60},
+        {    "nombre" : "ANGULAR", "progreso": 70},
+        {    "nombre" : "BOOTSTRAP", "progreso": 75},
+        {    "nombre" : "PYTHON", "progreso": 70},
+        {    "nombre" : "KOTLIN", "progreso": 90}
+            
+        
+       
+
+    ]
+
+}

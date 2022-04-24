@@ -9,7 +9,7 @@ import { Persona } from '../entidades/persona';
 export class DatosPersonalesService {
 
   constructor(private http:HttpClient) {
-    console.log("El servicio esta corriendo");
+    console.log("El servicio de datos personales esta corriendo");
    }
    obtenerDatosPersonales():Observable<any>{
      return this.http.get('./assets/data/persona.json');

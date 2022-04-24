@@ -15,6 +15,13 @@
             "img" : "assets/imagenes/ArgP.png"
         },
         {
+            "school" : "YoProgramo",
+            "title" : "Curso de ingles para desarrolladores de Software",
+            "start" : "2022",
+            "end" : "2022",
+            "img" : "assets/imagenes/ArgP.png"
+        },
+        {
             "school" : "Colegio Jose Hernandez",
             "title" : "Produccion de Bienes y Servicios",
             "start" : "2004",

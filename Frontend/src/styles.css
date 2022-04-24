@@ -27,6 +27,9 @@ display: inline-block;}
     text-align: center;
     font-style: italic;
 }
+.centrado{
+    text-align: center;
+}
 h1{
     font-family: cursive;
 }
