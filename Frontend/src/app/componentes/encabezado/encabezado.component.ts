@@ -9,7 +9,7 @@ import { DatosPersonalesService } from 'src/app/servicios/datos-personales.servi
   styleUrls: ['./encabezado.component.css']
 })
 export class EncabezadoComponent implements OnInit {
-  persona:any;
+  persona!:Persona;
   usuarioAutenticado:boolean=true;//deberia estar en false
   form:FormGroup;
 
@@ -37,9 +37,9 @@ export class EncabezadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.miServicio.obtenerDatosPersonales().subscribe(data=>{
+    this.miServicio.obtenerDatosPersonales(1).subscribe(data=>{
       console.log(data);
-      this.persona=data["persona"];
+      this.persona=data;
   })
   }
 
@@ -47,12 +47,13 @@ export class EncabezadoComponent implements OnInit {
     
     if(this.form.valid){
 
+         
           let fullName=this.form.get('fullName')?.value;
           let position=this.form.get('position')?.value;
           let ubication=this.form.get('ubication')?.value;
           let url=this.form.get('url')?.value;
 
-          let personaEditar = new Persona(fullName,position,ubication,url);
+          let personaEditar = new Persona(this.persona.id,fullName,position,ubication,url);
           this.miServicio.editarDatosPersonales(personaEditar).subscribe({
               //modificar los datos del componente por los ingresados por el usuario
             next: (data) => {
@@ -77,7 +78,7 @@ export class EncabezadoComponent implements OnInit {
       this.form.get('fullName')?.setValue(this.persona.fullName);
       this.form.get('position')?.setValue(this.persona.position);
       this.form.get('ubication')?.setValue(this.persona.ubication);
-      this.form.get('url')?.setValue(this.persona.image);
+      this.form.get('url')?.setValue(this.persona.url);
 
   }
 }

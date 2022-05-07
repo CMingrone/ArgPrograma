@@ -1,14 +1,18 @@
 <header>
   <app-nav-bar></app-nav-bar>
-
-        <img [src]= "persona.image" alt="imagen de fondo" style="width:100%">
+        <div class="Container-Fluid" >
+        <img src= "../assets/imagenes/Fondo.jpg" class = "imgA1" alt="imagen de fondo" style="width:100%">
+        <img src= "../assets/imagenes/Imagen.png" class = "imgB1" alt="mi imagen" style="width:15%">
+          
+        </div>
+    
         <h1 id="nombre">{{persona.fullName}}</h1>
-        <p id="perfil" class="descripcion">Desarrollador web full stack.</p>
+        <p id="perfil" class="descripcion">{{persona.position}}</p>
         <p id="residencia" class="descripcion">{{persona.ubication}}</p>
             <div class="centrado">        
                     <button *ngIf="usuarioAutenticado" class="myButton desci" data-bs-toggle="modal" data-bs-target="#editEncabezado" (click)="mostrarDatosEncabezado()">Editar</button>
             </div>
-  
+        
   <!-- Modal -->
   <div class="modal fade" id="editEncabezado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

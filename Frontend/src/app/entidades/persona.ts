@@ -1,28 +1,33 @@
 export class Persona{
+    id : number;
     fullName: string;
     position: string;
     ubication: string;
-    img:string;
+    url:string;
 
-    constructor(fullName:string, position:string, ubication:string, img:string){
+    constructor(id:number, fullName:string, position:string, ubication:string, url:string){
 
+        this.id= id;
         this.fullName= fullName;
         this.position=position;
         this.ubication=ubication;
-        this.img=img;
+        this.url=url;
     }
 
+    get getId(){
+      return this.id;
+    }
     get getFullName(){
         return this.fullName;
       }
-    get getPisition(){
+    get getPosition(){
         return this.position;
       }      
     get getUbication(){
         return this.ubication;
       }
-    get getImg(){
-        return this.img;
+    get getUrl(){
+        return this.url;
       }
 }
 
