@@ -1,12 +1,14 @@
 <section>
     <h1>Acerca de</h1>
     <div class="row">
-        <div class="col-10">
+        <div class="col-12">
             <p id="acercaDe" class = text-center>{{acercaDe.comentario}}<br></p>
         </div>
         <div class="col">
+          <div style="text-align:center">
             <button *ngIf="usuarioAutenticado" class="myButton" data-bs-toggle="modal" data-bs-target="#editarAcercaDe" (click)="mostrarDatosActuales()">Editar</button>
-                 <!-- Modal -->
+              </div>  
+               <!-- Modal -->
                  <div class="modal fade" id="editarAcercaDe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                     <div class="modal-content">

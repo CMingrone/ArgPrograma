@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Educacion } from 'src/app/entidades/educacion';
 import { EducacionService } from 'src/app/servicios/educacion.service';
+import { LoginService } from 'src/app/servicios/login.service';
 
 @Component({
   selector: 'app-educacion',
@@ -9,11 +10,14 @@ import { EducacionService } from 'src/app/servicios/educacion.service';
   styleUrls: ['./educacion.component.css']
 })
 export class EducacionComponent implements OnInit {
-  educacion:any;
-  usuarioAutenticado:boolean=true;//deberia estar en false
+  educacionList!:Educacion[];
+  idBack: number= 0;
+  h:number=0;
+  idFront:number=0;
+  usuarioAutenticado:boolean=false;
   form:FormGroup;
 
-  constructor(private servicioEducacion:EducacionService, private miForm:FormBuilder) {
+  constructor(private servicioEducacion:EducacionService,private login : LoginService, private miForm:FormBuilder) {
     this.form=this.miForm.group({
       school:['', [Validators.required]],
       title:['',[Validators.required]],
@@ -22,6 +26,9 @@ export class EducacionComponent implements OnInit {
       img:['',[Validators.required]]
 
     })
+   }
+   get id(){
+    return this.form.get("id");
    }
    get school(){
     return this.form.get("school");
@@ -39,49 +46,125 @@ export class EducacionComponent implements OnInit {
     return this.form.get("img");
   }
   ngOnInit(): void {
-    this.servicioEducacion.obtenerEducacion().subscribe(data=>{
-      console.log(data);
-      this.educacion=data["educacion"];
+    this.login.loginIn.subscribe(data=>{
+      this.usuarioAutenticado=true;
+  
     })
+
+    this.login.loginOut.subscribe(data=>{
+      this.usuarioAutenticado=false;
+    })
+
+
+    this.servicioEducacion.obtenerDatosEducacion().subscribe(data=>{
+
+      this.educacionList=data;
+
+      console.log(this.educacionList);
+
+      
+    })
+  }
+  
+  almacenarId(item:Educacion){
+    this.idBack= item.id;
+    this.idFront=this.educacionList.indexOf(item);
+ 
   }
 
   guardarDatos(){
-    
+          console.log(this.idBack);
     if(this.form.valid){
 
+          
           let school=this.form.get('school')?.value;
           let title=this.form.get('title')?.value;
           let start=this.form.get('start')?.value;
           let end=this.form.get('end')?.value;
           let img=this.form.get('img')?.value;
+          let idPersona=1;
+          console.log(school);
 
-          let educacionEditar = new Educacion(school,title,start,end,img);
-          this.servicioEducacion.editarDatos(educacionEditar).subscribe({
+          let educacionEditar = new Educacion(this.idBack,school,title,start,end,img,idPersona);
+
+          this.servicioEducacion.editarEducacion(educacionEditar,this.idBack).subscribe({
               //modificar los datos del componente por los ingresados por el usuario
             next: (data) => {
-              this.educacion=educacionEditar
+              
+              this.educacionList[this.idFront]=educacionEditar;
+              
+              
+              
+              //this.educacionList[this.idFront]['id']=this.idBack;
               this.form.reset();
-              document.getElementById("cerrarModalEducacion")?.click();
+                document.getElementById("cerrarModalEducacion")?.click();
             }, 
             error: (error) => {
               alert('No se puedo actualizar el registro. Por favor intente nuevamente mas tarde');
            
             }
-          });
-        
-          
+          });         
     }
     else{
           alert('Hay errores');
           this.form.markAllAsTouched()
     }
+    
   }
-  mostrarDatos(unaEducacion:any){
-      this.form.get('school')?.setValue(unaEducacion.school);
-      this.form.get('title')?.setValue(unaEducacion.title);
-      this.form.get('start')?.setValue(unaEducacion.start);
-      this.form.get('end')?.setValue(unaEducacion.end);
-      this.form.get('img')?.setValue(unaEducacion.img);
+
+
+  mostrarDatos(item:Educacion){
+
+    this.idBack= item.id;
+    this.idFront=this.educacionList.indexOf(item);
+      console.log(this.idFront);
+      console.log(this.idBack);
+
+      this.form.get('school')?.setValue(item.school);
+      this.form.get('title')?.setValue(item.title);
+      this.form.get('start')?.setValue(item.start);
+      this.form.get('end')?.setValue(item.end);
+      this.form.get('img')?.setValue(item.img);
+      this.almacenarId(item);
 
   }
+  eliminarEducacion(item:Educacion)
+  {
+    if(confirm("¿Seguro que desea borrar el item?")){
+    //alert(item.id);
+    this.servicioEducacion.eliminarEducacion(item.id).subscribe(data=>{   
+     // this.educacionList.splice(this.idBack,1);
+      console.log(this.educacionList);
+      this.ngOnInit();
+    },  error => {
+      alert("Se produjo  un error, consulte al   administrador");
+    })
+  }
 }
+
+  
+  agregarEducacion(){
+    let id=this.educacionList.length+1;
+    let school=this.form.get('school')?.value;
+    let title=this.form.get('title')?.value;
+    let start=this.form.get('start')?.value;
+    let end=this.form.get('end')?.value;
+    let img=this.form.get('img')?.value;
+    let idPersona=1;
+
+    let nuevaEducacion = new Educacion(id,school,title,start,end,img,idPersona);
+    alert("agregar nuevo item"+id);
+    this.servicioEducacion.nuevaEducacion(nuevaEducacion).subscribe(data => {
+        this.educacionList[id]=nuevaEducacion;
+        this.form.reset();
+        this.ngOnInit();
+        
+    });
+    document.getElementById("cerrarModalEducacionNew")?.click();
+
+    
+    
+  }
+
+}
+

@@ -7,14 +7,16 @@ import { Persona } from '../entidades/persona';
   providedIn: 'root'
 })
 export class DatosPersonalesService {
-urll : string = "http://localhost:8080/persona"
+url : string = "http://localhost:8080/persona"
   constructor(private http:HttpClient) {
     console.log("El servicio de datos personales esta corriendo");
    }
    obtenerDatosPersonales(id:number):Observable<Persona>{
-     return this.http.get<Persona>(this.urll+"/"+id);
+     return this.http.get<Persona>(this.url+"/"+id);
    }
    editarDatosPersonales(persona:Persona):Observable<any>{
-     return this.http.put(this.urll,persona);
+     return this.http.put(this.url+"Modificada",persona);
    }
+   
+   
 }

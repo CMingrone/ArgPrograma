@@ -7,15 +7,22 @@ import { Experiencia } from '../entidades/experiencia';
   providedIn: 'root'
 })
 export class ExperienciaService {
-
+  url : string = "http://localhost:8080/experiencia"
   constructor(private http:HttpClient) {
     console.log("El servicio de educacion esta corriendo");
    };
 
-    obtenerExperiencia():Observable<any>{
-      return this.http.get('./assets/data/experiencia.json');
+    obtenerExperiencia():Observable<Experiencia[]>{
+      return this.http.get<Experiencia[]>(this.url);
     }
-    editarDatos(experiencia:Experiencia):Observable<any>{
-      return this.http.post('http://localhost:3000/posts',experiencia);
+    editarExperiencia(experiencia:Experiencia,id:number):Observable<any>{
+      return this.http.put(this.url+"/"+id,experiencia);
     }
+    nuevaExperiencia(experiencia:Experiencia):Observable<any>{
+      return this.http.post(this.url,experiencia);
+    }
+    eliminarExperiencia(id:number){
+      return  this.http.delete(this.url+"/"+id);
+    }
+
 }

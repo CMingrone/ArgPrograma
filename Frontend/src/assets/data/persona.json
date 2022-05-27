@@ -1,6 +1,6 @@
 {
     "persona":
-        {
+        {   "idPersona": 1,
             "fullName" : "Carlos A. Mingrone",
             "dateOfBirth" : "19/06/1989",
             "position": "Desarrollador Web",

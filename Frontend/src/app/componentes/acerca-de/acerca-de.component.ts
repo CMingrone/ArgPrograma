@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AcercaDe } from 'src/app/entidades/acercaDe';
 import { AcercaDeService } from 'src/app/servicios/acerca-de.service';
+import { LoginService } from 'src/app/servicios/login.service';
 
 @Component({
   selector: 'app-acerca-de',
@@ -10,11 +11,11 @@ import { AcercaDeService } from 'src/app/servicios/acerca-de.service';
 })
 export class AcercaDeComponent implements OnInit {
  
-  acercaDe:any;
-  usuarioAutenticado:boolean=true;//deberia estar en false
+  acercaDe!:AcercaDe;
+  usuarioAutenticado:boolean=false;
   form:FormGroup;
 
-  constructor(private servicioAcercaDe:AcercaDeService, private miForm: FormBuilder) { 
+  constructor(private servicioAcercaDe:AcercaDeService, private login : LoginService,private miForm: FormBuilder) { 
     this.form=this.miForm.group({
       comentario:['', [Validators.required, Validators.minLength(30)]]
     } )
@@ -25,9 +26,15 @@ get comentario(){
 }
 
 ngOnInit(): void {
-  this.servicioAcercaDe.obtenerDatos().subscribe(data => {
+  this.login.loginIn.subscribe(data=>{
+    this.usuarioAutenticado=true;
+  })
+  this.login.loginOut.subscribe(data=>{
+    this.usuarioAutenticado=false;
+  })
+  this.servicioAcercaDe.obtenerDatos(1).subscribe(data => {
     console.log(data);
-    this.acercaDe=data["acercaDe"];
+    this.acercaDe=data;
   })
 
 }
@@ -36,8 +43,9 @@ guardarDatos(){
   if(this.form.valid){
 
         let comentario=this.form.get('comentario')?.value;
-
-        let comentarioEditar = new AcercaDe(comentario);
+        let idPersona=1;
+        
+        let comentarioEditar = new AcercaDe(this.acercaDe.id,comentario,idPersona);
         this.servicioAcercaDe.editarDatos(comentarioEditar).subscribe({
             //modificar los datos del componente por los ingresados por el usuario
           next: (data) => {

@@ -7,14 +7,20 @@ import { Herramienta } from '../entidades/herramienta';
   providedIn: 'root'
 })
 export class HerramientasService {
-
+  url : string = "http://localhost:8080/herramientas"
   constructor(private http:HttpClient) {
     console.log("El servicio de herramientas esta corriendo");
    }
-   obtenerHerramientas():Observable<any>{
-    return this.http.get('./assets/data/herramientas.json');
+   obtenerHerramientas():Observable<Herramienta[]>{
+    return this.http.get<Herramienta[]>(this.url);
   }
-  editarDatos(herramienta:Herramienta):Observable<any>{
-    return this.http.post('http://localhost:3000/posts',herramienta);
+  editarDatos(herramienta:Herramienta,id:number):Observable<any>{
+    return this.http.put(this.url+"/"+id,herramienta);
+  }
+  nuevaHerramienta(herramienta:Herramienta):Observable<any>{
+    return this.http.post(this.url,herramienta);
+  }
+  eliminarHerramienta(id:number){
+    return  this.http.delete(this.url+"/"+id);
   }
 }

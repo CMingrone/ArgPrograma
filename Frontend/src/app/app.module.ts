@@ -23,6 +23,7 @@ import { HttpClientModule} from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
     HerramientasComponent,
     ProyectosComponent,
     PiePaginaComponent,
-    NavBarComponent
+    NavBarComponent,
+   
   ],
   imports: [
     BrowserModule,

@@ -7,14 +7,14 @@ import { AcercaDe } from '../entidades/acercaDe';
   providedIn: 'root'
 })
 export class AcercaDeService {
-
+  url : string = "http://localhost:8080/acercaDe"
   constructor(private http:HttpClient) {
     console.log("El servicio acercaDe esta corriendo");
    }
-   obtenerDatos():Observable<any>{
-    return this.http.get('./assets/data/acercaDe.json');
+   obtenerDatos(id:number):Observable<any>{
+    return this.http.get<AcercaDe>(this.url+"/"+id);
   }
   editarDatos(comentario:AcercaDe):Observable<any>{
-    return this.http.post('http://localhost:3000/posts',comentario);
+    return this.http.put(this.url+"Modificada",comentario);
   }
 }

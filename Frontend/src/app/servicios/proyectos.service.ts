@@ -8,15 +8,21 @@ import { Proyecto } from '../entidades/proyectos';
   providedIn: 'root'
 })
 export class ProyectosService {
-
+  url : string = "http://localhost:8080/proyecto"
   constructor(private http:HttpClient) {
     console.log("El servicio de proyectos esta corriendo");
    };
 
-    obtenerProyectos():Observable<any>{
-      return this.http.get('./assets/data/proyectos.json');
+    obtenerProyectos():Observable<Proyecto[]>{
+      return this.http.get<Proyecto[]>(this.url);
     }
-    editarDatos(proyectos:Proyecto):Observable<any>{
-      return this.http.post('http://localhost:3000/posts',proyectos);
+    editarProyecto(proyecto:Proyecto,id:number):Observable<any>{
+      return this.http.put(this.url+"/"+id,proyecto);
+    }
+    nuevoProyecto(proyecto:Proyecto):Observable<any>{
+      return this.http.post(this.url,proyecto);
+    }
+    eliminarProyecto(id:number){
+      return  this.http.delete(this.url+"/"+id);
     }
 }

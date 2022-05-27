@@ -1,15 +1,15 @@
 {
     "herramientas": [
-        { "nombre" : "HTML", "progreso": 70},
-        { "nombre" : "CSS", "progreso": 70 },
-        { "nombre" : "JAVASCRIPT", "progreso": 60},
-        {    "nombre" : "TYPESCRIPT", "progreso": 60},
-        {    "nombre" : "GIT-GitHub", "progreso": 75},
-        {    "nombre" : "SQL", "progreso": 60},
-        {    "nombre" : "ANGULAR", "progreso": 70},
-        {    "nombre" : "BOOTSTRAP", "progreso": 75},
-        {    "nombre" : "PYTHON", "progreso": 70},
-        {    "nombre" : "KOTLIN", "progreso": 90}
+        { "idHerramienta": 1,"nombre" : "HTML", "progreso": 70,"idPersona":1},
+        { "idHerramienta": 2,"nombre" : "CSS", "progreso": 70 ,"idPersona":1},
+        { "idHerramienta": 3,"nombre" : "JAVASCRIPT", "progreso": 60,"idPersona":1},
+        { "idHerramienta": 4,   "nombre" : "TYPESCRIPT", "progreso": 60,"idPersona":1},
+        {  "idHerramienta":  5, "nombre" : "GIT-GitHub", "progreso": 75,"idPersona":1},
+        { "idHerramienta":  6,  "nombre" : "SQL", "progreso": 60,"idPersona":1},
+        {  "idHerramienta":  7, "nombre" : "ANGULAR", "progreso": 70,"idPersona":1},
+        {  "idHerramienta":  8, "nombre" : "BOOTSTRAP", "progreso": 75,"idPersona":1},
+        {"idHerramienta":   9,  "nombre" : "PYTHON", "progreso": 70,"idPersona":1},
+        { "idHerramienta":  10,  "nombre" : "KOTLIN", "progreso": 90,"idPersona":1}
             
         
        

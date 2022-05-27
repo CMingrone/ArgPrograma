@@ -7,15 +7,21 @@ import { Educacion } from '../entidades/educacion';
   providedIn: 'root'
 })
 export class EducacionService {
-
+  url : string = "http://localhost:8080/educacion"
   constructor(private http:HttpClient) {
     console.log("El servicio de educacion esta corriendo");
    };
 
-    obtenerEducacion():Observable<any>{
-      return this.http.get('./assets/data/educacion.json');
+    obtenerDatosEducacion():Observable<Educacion[]>{
+      return this.http.get<Educacion[]>(this.url);
     }
-    editarDatos(educacion:Educacion):Observable<any>{
-      return this.http.post('http://localhost:3000/posts',educacion);
+    editarEducacion(educacion:Educacion,id:number):Observable<any>{
+      return this.http.put(this.url+"/"+id,educacion);
+    }
+    nuevaEducacion(educacion:Educacion):Observable<any>{
+      return this.http.post(this.url,educacion);
+    }
+    eliminarEducacion(id:number){
+      return  this.http.delete(this.url+"/"+id);
     }
 }

@@ -3,6 +3,8 @@ import { HerramientasService } from 'src/app/servicios/herramientas.service';
 import { CargarScriptsService } from 'src/app/servicios/cargar-scripts.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Herramienta } from 'src/app/entidades/herramienta';
+import { LoginService } from 'src/app/servicios/login.service';
+
 @Component({
   selector: 'app-herramientas',
   templateUrl: './herramientas.component.html',
@@ -10,11 +12,14 @@ import { Herramienta } from 'src/app/entidades/herramienta';
 })
 export class HerramientasComponent implements OnInit {
 
-  herramientas:any;
-  usuarioAutenticado:boolean=true;//deberia estar en false
+  herramientasList!:Herramienta[];
+  usuarioAutenticado:boolean=false;
   form:FormGroup;
+  idBack: number= 0;
+  h:number=0;
+  idFront:number=0;
   
-  constructor(private servicioDeHerramientas:HerramientasService,  private miForm:FormBuilder) { 
+  constructor(private servicioDeHerramientas:HerramientasService, private login : LoginService, private miForm:FormBuilder) { 
     this.form=this.miForm.group({
       nombre:['', [Validators.required]],
       progreso:['',[Validators.required]]
@@ -36,10 +41,24 @@ export class HerramientasComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.login.loginIn.subscribe(data=>{
+      this.usuarioAutenticado=true;
+  
+    })
+
+    this.login.loginOut.subscribe(data=>{
+      this.usuarioAutenticado=false;
+    })
     this.servicioDeHerramientas.obtenerHerramientas().subscribe(data=>{
       console.log(data);
-      this.herramientas=data["herramientas"];
+      this.herramientasList=data;
     })
+  }
+
+  almacenarId(item:Herramienta){
+    this.idBack= item.id;
+    this.idFront=this.herramientasList.indexOf(item);
+ 
   }
   guardarDatos(){
     
@@ -47,15 +66,16 @@ export class HerramientasComponent implements OnInit {
 
           let nombre=this.form.get('nombre')?.value;
           let progreso=this.form.get('progreso')?.value;
-  
+          let idPersona=1;
 
-          let herramientasEditar = new Herramienta(nombre,progreso);
-          this.servicioDeHerramientas.editarDatos(herramientasEditar).subscribe({
+          let herramientasEditar = new Herramienta(this.idBack,nombre,progreso,idPersona);
+          this.servicioDeHerramientas.editarDatos(herramientasEditar,this.idBack).subscribe({
               //modificar los datos del componente por los ingresados por el usuario
             next: (data) => {
-              this.herramientas=herramientasEditar
+              this.herramientasList[this.idFront]=herramientasEditar
+             
+              document.getElementById("cerrarModalHerramientas")?.click();
               this.form.reset();
-              document.getElementById("cerrarModalEducacion")?.click();
             }, 
             error: (error) => {
               alert('No se puedo actualizar el registro. Por favor intente nuevamente mas tarde');
@@ -70,10 +90,40 @@ export class HerramientasComponent implements OnInit {
           this.form.markAllAsTouched()
     }
   }
-  mostrarDatos(unaHerramienta:any){
-      this.form.get('nombre')?.setValue(unaHerramienta.nombre);
-      this.form.get('progreso')?.setValue(unaHerramienta.progreso);
+  mostrarDatos(item:any){
+    this.idBack= item.id;
+    this.idFront=this.herramientasList.indexOf(item);
+      this.form.get('nombre')?.setValue(item.nombre);
+      this.form.get('progreso')?.setValue(item.progreso);
+  }
 
+  eliminarHerramienta(item:Herramienta)
+  {
+    if(confirm("¿Seguro que desea borrar el item?")){
+    //alert(item.id);
+    this.servicioDeHerramientas.eliminarHerramienta(item.id).subscribe(data=>{   
+     // this.herramientasList.splice(this.idBack,1);
+      console.log(this.herramientasList);
+      this.ngOnInit();
+    },  error => {
+      alert("Se produjo  un error, consulte al   administrador");
+    })
+  }
+}
+  agregarHerramienta(){
+    let id=this.herramientasList.length;
+    let nombre=this.form.get('nombre')?.value;
+    let progreso=this.form.get('progreso')?.value;
+    let idPersona=1;
 
+    let nuevaHerramienta = new Herramienta(id,nombre,progreso,idPersona);
+   
+    this.servicioDeHerramientas.nuevaHerramienta(nuevaHerramienta).subscribe(data => {
+    });
+
+    this.herramientasList[id]=nuevaHerramienta;
+    this.form.reset();
+    this.ngOnInit();
+    document.getElementById("cerrarModalHerramientaNew")?.click();
   }
 }

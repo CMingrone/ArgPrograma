@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Persona } from 'src/app/entidades/persona';
 import { DatosPersonalesService } from 'src/app/servicios/datos-personales.service';
+import { LoginService } from 'src/app/servicios/login.service';
 
 @Component({
   selector: 'app-encabezado',
@@ -10,10 +11,10 @@ import { DatosPersonalesService } from 'src/app/servicios/datos-personales.servi
 })
 export class EncabezadoComponent implements OnInit {
   persona!:Persona;
-  usuarioAutenticado:boolean=true;//deberia estar en false
+  usuarioAutenticado:boolean=false;//deberia estar en false
   form:FormGroup;
 
-  constructor(private miServicio:DatosPersonalesService, private miFormBuild:FormBuilder) {
+  constructor(private miServicio:DatosPersonalesService, private login : LoginService, private miFormBuild:FormBuilder) {
     this.form=this.miFormBuild.group({
       fullName:['', [Validators.required, Validators.minLength(5)]],
       position:['',[Validators.required]],
@@ -37,6 +38,15 @@ export class EncabezadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.login.loginIn.subscribe(data=>{
+      this.usuarioAutenticado=true;
+  
+    })
+
+    this.login.loginOut.subscribe(data=>{
+      this.usuarioAutenticado=false;
+    })
     this.miServicio.obtenerDatosPersonales(1).subscribe(data=>{
       console.log(data);
       this.persona=data;

@@ -7,8 +7,9 @@ export class Experiencia{
     start: string;
     end: string;
     img: string;
+    idPersona : number;
 
-    constructor(id:number, empresa:string, puesto:string, tareas:string, tipo:string, start:string, end:string, img:string){
+    constructor(id:number, empresa:string, puesto:string, tareas:string, tipo:string, start:string, end:string, img:string, idPersona: number){
 
         this.id= id;
         this.empresa= empresa;
@@ -18,6 +19,7 @@ export class Experiencia{
         this.start=start;
         this.end=end;
         this.img=img;
+        this.idPersona= idPersona;
     }
 
     get getId(){
@@ -43,5 +45,8 @@ export class Experiencia{
       }
     get getImg(){
         return this.img;
+      }
+    get getIdPersona(){
+        return this.idPersona;
       }
 }
